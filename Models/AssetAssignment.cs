@@ -4,19 +4,16 @@ namespace ITAssetManagement.Models
 {
   public class AssetAssignment
   {
-    public int AssignmentId { get; set; }
+    public int Id { get; set; }   // ✅ PRIMARY KEY
 
     public int AssetId { get; set; }
     public int EmployeeId { get; set; }
 
-    [Required]
-    public DateTime AssignedDate { get; set; }
+    public DateTime AssignedDate { get; set; } = DateTime.UtcNow;
 
-    public DateTime? ReturnedDate { get; set; }
-    public string Notes { get; set; }
+    public string? Notes { get; set; }  // optional
 
-    // Navigation Properties
-    public Asset Asset { get; set; }
-    public Employee Employee { get; set; }
+    public Asset Asset { get; set; } = null!;
+    public Employee Employee { get; set; } = null!;
   }
 }

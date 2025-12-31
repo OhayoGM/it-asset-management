@@ -4,25 +4,19 @@ namespace ITAssetManagement.Models
 {
   public class Asset
   {
-    public int AssetId { get; set; }
+    public int Id { get; set; }
 
-    [Required]
-    [StringLength(50)]
-    public string AssetTag { get; set; }
+    public string AssetTag { get; set; } = string.Empty;
+    public string Name { get; set; } = string.Empty;
+    public string Category { get; set; } = string.Empty;
+    public string Brand { get; set; } = string.Empty;
+    public string Model { get; set; } = string.Empty;
+    public string SerialNumber { get; set; } = string.Empty;
 
-    [Required]
-    [StringLength(100)]
-    public string Name { get; set; }
+    public DateTime PurchaseDate { get; set; }
+    public string Status { get; set; } = "Available";
 
-    public string Category { get; set; }
-    public string Brand { get; set; }
-    public string Model { get; set; }
-    public string SerialNumber { get; set; }
-
-    public DateTime? PurchaseDate { get; set; }
-    public DateTime? WarrantyExpiry { get; set; }
-
-    [Required]
-    public string Status { get; set; }
+    public ICollection<AssetAssignment> Assignments { get; set; }
+        = new List<AssetAssignment>();
   }
 }

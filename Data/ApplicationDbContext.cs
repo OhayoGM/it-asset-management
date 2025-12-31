@@ -10,8 +10,9 @@ namespace ITAssetManagement.Data
     {
     }
 
-    public DbSet<Asset> Assets { get; set; }
-    public DbSet<Employee> Employees { get; set; }
-    public DbSet<AssetAssignment> AssetAssignments { get; set; }
+    public DbSet<Asset> Assets => Set<Asset>();
+    public DbSet<Employee> Employees => Set<Employee>();
+    public DbSet<AssetAssignment> AssetAssignments => Set<AssetAssignment>();
+
   }
 }
