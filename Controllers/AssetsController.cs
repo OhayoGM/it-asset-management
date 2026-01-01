@@ -2,6 +2,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ITAssetManagement.Data;
 using ITAssetManagement.Models;
+using Microsoft.AspNetCore.Mvc.Rendering;
+
 
 namespace ITAssetManagement.Controllers
 {
@@ -17,7 +19,10 @@ namespace ITAssetManagement.Controllers
     // GET: Assets
     public async Task<IActionResult> Index()
     {
-      return View(await _context.Assets.ToListAsync());
+      var assets = _context.Assets
+          .Include(a => a.Employee);
+
+      return View(await assets.ToListAsync());
     }
 
     // GET: Assets/Details/5
@@ -34,8 +39,13 @@ namespace ITAssetManagement.Controllers
     // GET: Assets/Create
     public IActionResult Create()
     {
+      ViewData["EmployeeId"] = new SelectList(
+          _context.Employees, "Id", "FullName"
+      );
+
       return View();
     }
+
 
     // POST: Assets/Create
     [HttpPost]
@@ -48,8 +58,14 @@ namespace ITAssetManagement.Controllers
         await _context.SaveChangesAsync();
         return RedirectToAction(nameof(Index));
       }
+
+      ViewData["EmployeeId"] = new SelectList(
+          _context.Employees, "Id", "FullName", asset.EmployeeId
+      );
+
       return View(asset);
     }
+
 
     // GET: Assets/Edit/5
     public async Task<IActionResult> Edit(int? id)
@@ -59,8 +75,13 @@ namespace ITAssetManagement.Controllers
       var asset = await _context.Assets.FindAsync(id);
       if (asset == null) return NotFound();
 
+      ViewData["EmployeeId"] = new SelectList(
+          _context.Employees, "Id", "FullName", asset.EmployeeId
+      );
+
       return View(asset);
     }
+
 
     // POST: Assets/Edit/5
     [HttpPost]
@@ -75,8 +96,14 @@ namespace ITAssetManagement.Controllers
         await _context.SaveChangesAsync();
         return RedirectToAction(nameof(Index));
       }
+
+      ViewData["EmployeeId"] = new SelectList(
+          _context.Employees, "Id", "FullName", asset.EmployeeId
+      );
+
       return View(asset);
     }
+
 
     // GET: Assets/Delete/5
     public async Task<IActionResult> Delete(int? id)
