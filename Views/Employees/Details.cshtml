@@ -1,0 +1,10 @@
+@model ITAssetManagement.Models.Employee
+
+<h2>Employee Details</h2>
+
+<p><strong>Name:</strong> @Model.FullName</p>
+<p><strong>Department:</strong> @Model.Department</p>
+<p><strong>Email:</strong> @Model.Email</p>
+
+<a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary">Edit</a>
+<a asp-action="Index" class="btn btn-secondary">Back</a>
